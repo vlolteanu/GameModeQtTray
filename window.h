@@ -51,6 +51,8 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
+#include <vector>
+
 #include <QSystemTrayIcon>
 
 #ifndef QT_NO_SYSTEMTRAYICON
@@ -70,57 +72,32 @@ class QSpinBox;
 class QTextEdit;
 QT_END_NAMESPACE
 
-//! [0]
 class Window : public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    Window();
-
-    void setVisible(bool visible) override;
+	Window();
 
 protected:
-    void closeEvent(QCloseEvent *event) override;
+	void closeEvent(QCloseEvent *event) override;
 
 private slots:
-    void setIcon(int index);
-    void iconActivated(QSystemTrayIcon::ActivationReason reason);
-    void showMessage();
-    void messageClicked();
+	void setIcon(int index);
+	void iconActivated(QSystemTrayIcon::ActivationReason reason);
 
 private:
-    void createIconGroupBox();
-    void createMessageGroupBox();
-    void createActions();
-    void createTrayIcon();
+	void createActions();
+	void createTrayIcon();
 
-    QGroupBox *iconGroupBox;
-    QLabel *iconLabel;
-    QComboBox *iconComboBox;
-    QCheckBox *showIconCheckBox;
+	QAction *quitAction;
 
-    QGroupBox *messageGroupBox;
-    QLabel *typeLabel;
-    QLabel *durationLabel;
-    QLabel *durationWarningLabel;
-    QLabel *titleLabel;
-    QLabel *bodyLabel;
-    QComboBox *typeComboBox;
-    QSpinBox *durationSpinBox;
-    QLineEdit *titleEdit;
-    QTextEdit *bodyEdit;
-    QPushButton *showMessageButton;
+	QSystemTrayIcon *trayIcon;
+	QMenu *trayIconMenu;
 
-    QAction *minimizeAction;
-    QAction *maximizeAction;
-    QAction *restoreAction;
-    QAction *quitAction;
-
-    QSystemTrayIcon *trayIcon;
-    QMenu *trayIconMenu;
+	std::vector<std::pair<QIcon, QString>> icons;
+	bool enabled = false;
 };
-//! [0]
 
 #endif // QT_NO_SYSTEMTRAYICON
 

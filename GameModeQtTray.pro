@@ -6,6 +6,7 @@ RESOURCES     = systray.qrc
 QT += widgets
 requires(qtConfig(combobox))
 
+LIBS += -lgamemode -ldl
+
 # install
-target.path = $$[QT_INSTALL_EXAMPLES]/widgets/desktop/systray
 INSTALLS += target
